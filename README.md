@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# React - Packing List
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🔗 [Live Preview]()
 
-## Available Scripts
+![Design preview](./public/preview.png)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## About 👋
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This React exercise which is for packing list management, practices logic of useState and passing props
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Features 👨‍💻
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Item Addition: Controlled components handle quantity and description inputs, ensuring React manages their values. This allows for dynamic updates and validation.
 
-### `npm run build`
+- Interactive Packing: Toggle the packed status of items with checkboxes managed by React's state. Visual cues with strikethrough text enhance user experience.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Customizable Sorting: Dynamically re-order the displayed items based on your chosen criteria (input order, description, or packed status).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- List Clearing: A dedicated button that triggers a confirmation prompt before clearing the entire list. React then removes all items from the state.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Informative Footer: Displays the total number of items, packed items, and a percentage completion indicator, all derived from the state using derived state variables.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Explanation 🧠
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**1. App Component:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+--- Manages the overall state of the application using useState hooks. This state includes:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- `items`: An array containing objects representing each item (quantity, description, packed status, id).
+- `sortBy`: A string indicating the current sorting criteria (input, description, packed).
 
-## Learn More
+--- Sends data as props:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The App component renders the `Form` and `PackingList` components.
+It passes the following state data as props:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `items` array to the `PackingList` component for displaying the list.
+- `onAddItems` function (handles adding new items) to the `Form` component.
+- `onClearList` function (handles clearing the list) to the `PackingList` component.
+- `sortBy` string (sorting criteria) and functions to update it (potentially) to the `PackingList` component.
 
-### Code Splitting
+**2. Form Component:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+--- Receives `onAddItems` function as a prop from the App. Handles user input for quantity and description. When the user submits the form:
 
-### Analyzing the Bundle Size
+- It creates a new item object with the entered data and a unique ID (e.g., using `Date.now()`).
+- It calls the `onAddItems` function received as a prop, passing the new item object as an argument.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**3. PackingList Component:**
 
-### Making a Progressive Web App
+--- Receives `items` array, `onClearList` function, and potentially `sortBy` and sorting update functions as props from the `App`. Displays the list of items using the `Item` component, passing each item object and relevant functions as props. Handles user interactions:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Calls the `onClearList` function received as a prop when the "Clear list" button is clicked.
+- Potentially uses the `sortBy` prop and sorting update functions to manage sorting logic.
 
-### Advanced Configuration
+**4. Item Component:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Receives individual item object, `onDeleteItem` function (for deleting an item), and `onToggleItem` function (for toggling packed status) as props from the `PackingList`. Displays the item's quantity, description, and a checkbox for marking it packed. Handles user interactions:
 
-### Deployment
+- Calls the `onDeleteItem` function received as a prop when the delete button is clicked.
+- Calls the `onToggleItem` function received as a prop when the checkbox is clicked.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## Key Points: 🔑
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- The App component acts as a central state manager, holding all the application's core data.
+- Data (items, functions) flows down as props from parent (App) to child components (Form, PackingList, Item).
+- Child components cannot directly modify the state held by the parent. They trigger updates by calling functions passed as props.
+- This unidirectional data flow promotes a well-organized and predictable application structure.
+
+---
+
+## Languages
+
+- React: functions, conditionals, useState, components, props, derived state
+- Styling: basic
