@@ -1,6 +1,6 @@
 # React - Packing List
 
-# 🔗 [Live Preview]()
+# 🔗 [Live Preview](https://main--celadon-madeleine-22aa7d.netlify.app/)
 
 ![Design preview](./public/preview.png)
 
